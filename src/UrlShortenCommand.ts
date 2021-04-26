@@ -10,6 +10,8 @@ import {
 } from "@rocket.chat/apps-engine/definition/slashcommands";
 
 import alertMessage from "./lib/alertMessage";
+import notifyTyping from "./lib/notifyTyping";
+import cleanUri from "./zeroConfig/cleanUri";
 
 export default class UrlShortenCommand implements ISlashCommand {
   public command = "urlshorten";
@@ -28,23 +30,32 @@ export default class UrlShortenCommand implements ISlashCommand {
     _peris: IPersistence
   ): Promise<void> {
     const url = ctx.getArguments()[0];
-    try {
-      const resp = await http.post("https://cleanuri.com/api/v1/shorten", {
-        data: { url },
-      });
-      const shortened = resp.data?.result_url;
 
+    const cancelTyping = await notifyTyping(
+      modify.getNotifier(),
+      ctx.getRoom()
+    );
+
+    const [shortened, error] = await cleanUri(url, http);
+
+    cancelTyping();
+
+    if (shortened) {
       alertMessage({
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
         msg: `shortened url is ${shortened}`,
         room: ctx.getRoom(),
       });
-    } catch (e) {
+    } else {
+      const msg = error
+        ? `_cleanuri_ \`${error}\``
+        : `_cleanuri_ Could not shorten url`;
+
       alertMessage({
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
-        msg: `failed`,
+        msg,
         room: ctx.getRoom(),
       });
     }
