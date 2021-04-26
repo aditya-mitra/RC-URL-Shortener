@@ -5,8 +5,8 @@
     "iconFile": "public/icon.png",
     "author": {
         "name": "aditya-mitra",
-        "homepage": "https://aditya-mitra.github.io",
-        "support": "https://aditya-mitra.github.io"
+        "homepage": "https://rc-url-shortener.netlify.app",
+        "support": "https://github.com/aditya-mitra/RC-URL-Shortener/issues"
     },
     "name": "urlshortener",
     "nameSlug": "urlshortener",

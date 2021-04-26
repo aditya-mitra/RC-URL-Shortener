@@ -20,7 +20,7 @@ export default class UrlShortenCommand implements ISlashCommand {
   ): Promise<void> {
     const message = 'shorten urls from app';
 
-    const messageStructure = await modify.getCreator().startMessage();
+    const messageStructure = modify.getCreator().startMessage();
     const sender = ctx.getSender(); // the user calling the slashcommand
     const room = ctx.getRoom(); // the current room
 
