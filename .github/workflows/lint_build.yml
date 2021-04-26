@@ -37,21 +37,15 @@ jobs:
         run: |
           npm install -g npm@7
 
+      - name: Install dependencies
+        run: npm ci
+        if: steps.app_cache.outputs.cache-hit != 'true'
+      
       - name: Install rc-apps CLI
         # install rc-apps in node_modules so that it can be cached
         run: |
           npm install @rocket.chat/apps-cli --no-save
           ./node_modules/.bin/rc-apps -v
-
-      - name: before
-        run: ls ./node_modules/.bin
-
-      - name: Install dependencies
-        run: npm ci
-        if: steps.app_cache.outputs.cache-hit != 'true'
-      
-      - name: after
-        run: ls ./node_modules/.bin
 
       - name: Cache all of the above for next steps
         uses: actions/cache@v2
