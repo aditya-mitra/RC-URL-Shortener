@@ -1,0 +1,15 @@
+{
+    "id": "0680e6a5-0826-4a58-a56b-73bb47de5199",
+    "version": "0.0.1",
+    "requiredApiVersion": "^1.4.0",
+    "iconFile": "icon.png",
+    "author": {
+        "name": "aditya-mitra",
+        "homepage": "https://aditya-mitra.github.io",
+        "support": "https://aditya-mitra.github.io"
+    },
+    "name": "urlshortener",
+    "nameSlug": "urlshortener",
+    "classFile": "UrlShortenerApp.ts",
+    "description": "Rocket.Chat App to shorten urls (with customization options)"
+}
