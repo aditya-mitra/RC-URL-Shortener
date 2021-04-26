@@ -1,8 +1,23 @@
 {
-    "devDependencies": {
-        "@rocket.chat/apps-engine": "^1.19.0",
-        "@types/node": "14.14.6",
-        "tslint": "^5.10.0",
-        "typescript": "^4.0.5"
-    }
+  "name": "urlshortener",
+  "version": "1.0.1",
+  "description": "Rocket.Chat App to shorten urls (with customization options)",
+  "main": "UrlShortenerApp.ts",
+  "dependencies": {
+    "@rocket.chat/apps-engine": "^1.19.0",
+    "@types/node": "14.14.6",
+    "tslint": "^5.10.0",
+    "typescript": "^4.0.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Rocket.Chat",
+    "Rocket.Chat.Apps-engine",
+    "Url",
+    "Shortener"
+  ],
+  "author": "aditya-mitra",
+  "license": "MIT"
 }
