@@ -22,9 +22,9 @@ jobs:
             ~/.npm
             ./node_modules
 
-          key: ${{ runner.os }}-app1-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-app1-${{ hashFiles('package-lock.json', '.github/workflows/lint_build.yml') }}
 
-      - name: show cache status
+      - name: Show cache status
         run: |
           echo ${{steps.app_cache.outputs.cache-hit}}
 
@@ -38,17 +38,20 @@ jobs:
           npm install -g npm@7
 
       - name: Install rc-apps CLI
+        # install rc-apps in node_modules so that it can be cached
         run: |
-          npm install -g @rocket.chat/apps-cli
-          rc-apps -v
+          npm install @rocket.chat/apps-cli --no-save
+          ./node_modules/.bin/rc-apps -v
 
-      - name: check install location
-        run: |
-          npm root -g
+      - name: before
+        run: ls ./node_modules/.bin
 
       - name: Install dependencies
         run: npm ci
         if: steps.app_cache.outputs.cache-hit != 'true'
+      
+      - name: after
+        run: ls ./node_modules/.bin
 
       - name: Cache all of the above for next steps
         uses: actions/cache@v2
@@ -56,34 +59,37 @@ jobs:
         with:
           path: |
             ./*
-            /usr/local/lib/node_modules
           key: app_actions-${{github.sha}}
 
   lint:
     runs-on: ubuntu-latest
+    needs: install
 
     steps:
-      - name: restore cache
+      - name: Restore cache
         uses: actions/cache@v2
         id: restore_app_actions_cache
         with:
           path: ./*
           key: app_actions-${{github.sha}}
 
-      - name: check lint
+      - name: Check lint
         run: npm run lint
 
   build:
     runs-on: ubuntu-latest
+    needs: install
 
     steps:
-      - name: restore cache
+      - name: Restore cache
         uses: actions/cache@v2
         id: restore_app_actions_cache
         with:
           path: |
             ./*
-            /usr/local/lib/node_modules
           key: app_actions-${{github.sha}}
-      - name: package as Rocket.Chat app
-        run: rc-apps package
+      - name: show bin
+        run: |
+          ls ./node_modules/.bin
+      - name: Package as Rocket.Chat app
+        run: ./node_modules/.bin/rc-apps package
