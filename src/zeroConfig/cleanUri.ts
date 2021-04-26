@@ -1,4 +1,4 @@
-import { IHttp } from "@rocket.chat/apps-engine/definition/accessors";
+import { IHttp } from '@rocket.chat/apps-engine/definition/accessors';
 
 /**
  * using cleanuri api
@@ -6,9 +6,9 @@ import { IHttp } from "@rocket.chat/apps-engine/definition/accessors";
  */
 export default async function cleanUri(
   url: string,
-  http: IHttp
+  http: IHttp,
 ): Promise<[string, string]> {
-  const resp = await http.post("https://cleanuri.com/api/v1/shorten", {
+  const resp = await http.post('https://cleanuri.com/api/v1/shorten', {
     data: { url },
   });
 

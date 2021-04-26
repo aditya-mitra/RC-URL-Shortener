@@ -3,22 +3,22 @@ import {
   IModify,
   IPersistence,
   IRead,
-} from "@rocket.chat/apps-engine/definition/accessors";
+} from '@rocket.chat/apps-engine/definition/accessors';
 import {
   ISlashCommand,
   SlashCommandContext,
-} from "@rocket.chat/apps-engine/definition/slashcommands";
+} from '@rocket.chat/apps-engine/definition/slashcommands';
 
-import alertMessage from "./lib/alertMessage";
-import notifyTyping from "./lib/notifyTyping";
-import cleanUri from "./zeroConfig/cleanUri";
+import alertMessage from './lib/alertMessage';
+import notifyTyping from './lib/notifyTyping';
+import cleanUri from './zeroConfig/cleanUri';
 
 export default class UrlShortenCommand implements ISlashCommand {
-  public command = "urlshorten";
+  public command = 'urlshorten';
 
-  public i18nDescription = "shorten long urls";
+  public i18nDescription = 'shorten long urls';
 
-  public i18nParamsExample = "<url> <quick|custom>";
+  public i18nParamsExample = '<url> <quick|custom>';
 
   public providesPreview = false;
 
@@ -27,13 +27,13 @@ export default class UrlShortenCommand implements ISlashCommand {
     _read: IRead,
     modify: IModify,
     http: IHttp,
-    _peris: IPersistence
+    _peris: IPersistence // eslint-disable-line
   ): Promise<void> {
     const url = ctx.getArguments()[0];
 
     const cancelTyping = await notifyTyping(
       modify.getNotifier(),
-      ctx.getRoom()
+      ctx.getRoom(),
     );
 
     const [shortened, error] = await cleanUri(url, http);
@@ -50,7 +50,7 @@ export default class UrlShortenCommand implements ISlashCommand {
     } else {
       const msg = error
         ? `_cleanuri_ \`${error}\``
-        : `_cleanuri_ Could not shorten url`;
+        : '_cleanuri_ Could not shorten url';
 
       alertMessage({
         notify: modify.getNotifier(),
