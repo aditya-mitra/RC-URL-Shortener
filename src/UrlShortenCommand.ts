@@ -5,7 +5,7 @@ import {
 } from '@rocket.chat/apps-engine/definition/slashcommands';
 
 export default class UrlShortenCommand implements ISlashCommand {
-  public command = 'shorten-url';
+  public command = 'urlshorten';
 
   public i18nDescription = 'shorten long urls';
 
@@ -18,7 +18,7 @@ export default class UrlShortenCommand implements ISlashCommand {
     _read: IRead,
     modify: IModify,
   ): Promise<void> {
-    const message = 'shorten urls';
+    const message = 'shorten urls from app';
 
     const messageStructure = await modify.getCreator().startMessage();
     const sender = ctx.getSender(); // the user calling the slashcommand

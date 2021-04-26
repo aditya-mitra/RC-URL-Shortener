@@ -6,17 +6,27 @@
     "extends": [
         "airbnb-base"
     ],
+    "plugins": [
+        "@typescript-eslint"
+    ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint"
-    ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".ts"
+                ]
+            }
+        }
+    },
     "rules": {
         "no-console": 2,
-        "no-useless-constructor": 0, // checking
-        "class-methods-use-this": 0 // some class methods cannot be static
+        "class-methods-use-this": 0, // some class methods cannot be static
+        "import/no-extraneous-dependencies": 0, // the main dependencies are listed under devDependecies and not dependencies inside package.json
+        "import/extensions": 0 // not required to include file extensions in imports
     }
 }

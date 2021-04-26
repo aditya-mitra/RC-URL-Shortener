@@ -12,7 +12,7 @@
   "license": "MIT",
   "main": "UrlShortenerApp.ts",
   "scripts": {
-    "lint": "eslint . --ext .ts,.js",
+    "lint": "eslint . --ext .ts,.js src/** UrlShortenerApp.ts",
     "lintf": "npm run lint -- --fix",
     "build": "rc-apps package",
     "deploy": "rc-apps deploy --url http://localhost:3000"
@@ -24,7 +24,6 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "@rocket.chat/apps-cli": "^1.9.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "eslint": "^7.25.0",

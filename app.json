@@ -2,7 +2,7 @@
     "id": "0680e6a5-0826-4a58-a56b-73bb47de5199",
     "version": "1.0.1",
     "requiredApiVersion": "^1.19.0",
-    "iconFile": "icon.png",
+    "iconFile": "public/icon.png",
     "author": {
         "name": "aditya-mitra",
         "homepage": "https://aditya-mitra.github.io",
