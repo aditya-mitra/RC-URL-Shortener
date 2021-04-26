@@ -1,4 +1,6 @@
-import { IHttp } from '@rocket.chat/apps-engine/definition/accessors';
+import { IHttp } from "@rocket.chat/apps-engine/definition/accessors";
+
+import { IZeroConfigAPIResult } from "../types/zeroConfig";
 
 /**
  * using cleanuri api
@@ -6,14 +8,14 @@ import { IHttp } from '@rocket.chat/apps-engine/definition/accessors';
  */
 export default async function cleanUri(
   url: string,
-  http: IHttp,
-): Promise<[string, string]> {
-  const resp = await http.post('https://cleanuri.com/api/v1/shorten', {
+  http: IHttp
+): Promise<IZeroConfigAPIResult> {
+  const resp = await http.post("https://cleanuri.com/api/v1/shorten", {
     data: { url },
   });
 
   const shortened = resp.data?.result_url;
   const error = resp.data?.error;
 
-  return [shortened, error];
+  return { shortened, error, api: "cleanuri" };
 }

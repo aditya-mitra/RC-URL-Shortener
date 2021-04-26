@@ -8,11 +8,10 @@ import {
   ISlashCommand,
   SlashCommandContext,
 } from "@rocket.chat/apps-engine/definition/slashcommands";
-import { zeroConfigs } from "./enums/appSettings";
 
 import alertMessage from "./lib/alertMessage";
 import notifyTyping from "./lib/notifyTyping";
-import cleanUri from "./zeroConfig/cleanUri";
+import zeroConfigShorten from "./zeroConfig/shorten";
 
 export default class UrlShortenCommand implements ISlashCommand {
   public command = "urlshorten";
@@ -37,13 +36,11 @@ export default class UrlShortenCommand implements ISlashCommand {
       ctx.getRoom()
     );
 
-    const [shortened, error] = await cleanUri(url, http);
-
-    const provider = read
-      .getEnvironmentReader()
-      .getSettings()
-      .getById(zeroConfigs.id);
-    console.log("the chosen provider is", provider);
+    const { shortened, error } = await zeroConfigShorten({
+      envRead: read.getEnvironmentReader(),
+      http,
+      url,
+    });
 
     cancelTyping();
 
@@ -51,18 +48,14 @@ export default class UrlShortenCommand implements ISlashCommand {
       alertMessage({
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
-        msg: `shortened url is ${shortened}`,
+        msg: shortened,
         room: ctx.getRoom(),
       });
     } else {
-      const msg = error
-        ? `_cleanuri_ \`${error}\``
-        : "_cleanuri_ Could not shorten url";
-
       alertMessage({
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
-        msg,
+        msg: error || "SLASH COMMAND ERROR",
         room: ctx.getRoom(),
       });
     }
