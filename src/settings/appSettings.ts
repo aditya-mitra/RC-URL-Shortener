@@ -42,7 +42,9 @@ const settings: ISetting[] = [
   },
 ];
 
-export default async function appSettings(config: IConfigurationExtend) {
+export default async function appSettings(
+  config: IConfigurationExtend,
+): Promise<void> {
   await Promise.all(
     settings.map((setting) => config.settings.provideSetting(setting)),
   );

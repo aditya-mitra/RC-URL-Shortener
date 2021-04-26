@@ -15,7 +15,7 @@ export default async function alertMessage({
   sender,
   msg,
   room,
-}: IAlertMessage) {
+}: IAlertMessage): Promise<void> {
   const message: IMessage = {
     text: msg,
     room,

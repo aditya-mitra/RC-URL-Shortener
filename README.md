@@ -1,4 +1,4 @@
-<div style="text-align:center"><img src="public/icon.png" alt="logo icon"></div>
+<div style="align:center;"><img src="public/icon.png" alt="logo icon"></div>
 
 # Rocket.Chat-URL_Shortener
 
@@ -12,7 +12,7 @@
 
 ## Setting up the Development Environment
 
-Make sure you have the [rc-apps engine CLI] installed.
+Make sure you have the [rc-apps engine CLI](https://github.com/RocketChat/Rocket.Chat.Apps-cli) installed.
 
 You can install it using
 

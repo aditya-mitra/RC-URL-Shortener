@@ -11,7 +11,7 @@ export default async function sendMessage({
   creator,
   msg,
   room,
-}: ISendMessage) {
+}: ISendMessage): Promise<void> {
   const builder = creator.startMessage().setText(msg).setRoom(room);
   await creator.finish(builder);
 }
