@@ -1,12 +1,12 @@
 import {
   IEnvironmentRead,
   IHttp,
-} from "@rocket.chat/apps-engine/definition/accessors";
+} from '@rocket.chat/apps-engine/definition/accessors';
 
-import { zeroConfigs } from "../enums/appSettings";
-import { IShortenResult } from "../types/shortenCommand";
-import { IZeroConfigAPIResult } from "../types/zeroConfig";
-import cleanUri from "./cleanUri";
+import { zeroConfigs } from '../enums/appSettings';
+import { IShortenResult } from '../types/shortenCommand';
+import { IZeroConfigAPIResult } from '../types/zeroConfig';
+import cleanUri from './cleanUri';
 
 interface IZeroConfigShorten {
   envRead: IEnvironmentRead;
@@ -23,17 +23,17 @@ export default async function zeroConfigShorten({
 
   const { value: provider } = env;
 
-  let val: IZeroConfigAPIResult = { shortened: "", error: "", api: "" };
+  let val: IZeroConfigAPIResult = { shortened: '', error: '', api: '' };
   switch (provider) {
     case zeroConfigs.cleanuri:
       val = await cleanUri(url, http);
       break;
     default:
       val = {
-        shortened: "",
+        shortened: '',
         error:
-          "The chosen _ZeroConfig_ Provider is incorrect\nPlease choose one from the available options",
-        api: "*Incorrect Provider*",
+          'The chosen _ZeroConfig_ Provider is incorrect\nPlease choose one from the available options',
+        api: '*Incorrect Provider*',
       };
   }
 

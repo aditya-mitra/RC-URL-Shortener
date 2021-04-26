@@ -25,6 +25,10 @@
     },
     "rules": {
         "no-console": 2,
+        "@typescript-eslint/no-shadow": 2,
+        "@typescript-eslint/no-unused-vars": 2,
+        "no-unused-vars": 0, // used the one provided by typescript
+        "no-shadow": 0, // used the one provided by typescript
         "class-methods-use-this": 0, // some class methods cannot be static
         "import/no-extraneous-dependencies": 0, // the main dependencies are listed under devDependecies and not dependencies inside package.json
         "import/extensions": 0 // not required to include file extensions in imports

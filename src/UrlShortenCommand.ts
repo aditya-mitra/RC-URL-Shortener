@@ -3,22 +3,22 @@ import {
   IModify,
   IPersistence,
   IRead,
-} from "@rocket.chat/apps-engine/definition/accessors";
+} from '@rocket.chat/apps-engine/definition/accessors';
 import {
   ISlashCommand,
   SlashCommandContext,
-} from "@rocket.chat/apps-engine/definition/slashcommands";
+} from '@rocket.chat/apps-engine/definition/slashcommands';
 
-import alertMessage from "./lib/alertMessage";
-import notifyTyping from "./lib/notifyTyping";
-import zeroConfigShorten from "./zeroConfig/shorten";
+import alertMessage from './lib/alertMessage';
+import notifyTyping from './lib/notifyTyping';
+import zeroConfigShorten from './zeroConfig/shorten';
 
 export default class UrlShortenCommand implements ISlashCommand {
-  public command = "urlshorten";
+  public command = 'urlshorten';
 
-  public i18nDescription = "shorten long urls";
+  public i18nDescription = 'shorten long urls';
 
-  public i18nParamsExample = "<url> <quick|custom>";
+  public i18nParamsExample = '<url> <quick|custom>';
 
   public providesPreview = false;
 
@@ -33,7 +33,7 @@ export default class UrlShortenCommand implements ISlashCommand {
 
     const cancelTyping = await notifyTyping(
       modify.getNotifier(),
-      ctx.getRoom()
+      ctx.getRoom(),
     );
 
     const { shortened, error } = await zeroConfigShorten({
@@ -55,7 +55,7 @@ export default class UrlShortenCommand implements ISlashCommand {
       alertMessage({
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
-        msg: error || "SLASH COMMAND ERROR",
+        msg: error || 'SLASH COMMAND ERROR',
         room: ctx.getRoom(),
       });
     }
