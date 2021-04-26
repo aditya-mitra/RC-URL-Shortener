@@ -1,3 +1,5 @@
+<div style="text-align:center"><img src="public/icon.png" alt="logo icon"></div>
+
 # Rocket.Chat-URL_Shortener
 
 **Rocket.Chat App which:**
