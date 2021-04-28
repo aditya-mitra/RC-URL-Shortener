@@ -65,8 +65,8 @@ const settings: ISetting[] = [
     id: customConfigs.provider,
     i18nLabel: 'Provider URL',
     i18nDescription:
-      'The full url of the provider where the request for shortening should be made',
-    packageValue: '',
+    'The full url of the provider where the request for shortening should be made',
+    packageValue: 'https://example.com/api/shorten',
     required: false,
     public: false,
     type: SettingType.STRING,
@@ -76,7 +76,7 @@ const settings: ISetting[] = [
     id: customConfigs.header,
     i18nLabel: 'POST Request Headers',
     i18nDescription: 'The values to be sent in the headers of POST request',
-    packageValue: '',
+    packageValue: '{}',
     required: false,
     public: false,
     type: SettingType.CODE,
@@ -88,11 +88,33 @@ const settings: ISetting[] = [
     i18nLabel: 'POST Request Body',
     i18nDescription:
       'The values to be sent *along* in the body of POST request',
-    packageValue: '',
+    packageValue: '{}',
     required: false,
     public: false,
     type: SettingType.CODE,
     multiline: true,
+  },
+  {
+    section: sections.custom,
+    id: customConfigs.urlKey,
+    i18nLabel: 'URL Key',
+    i18nDescription:
+      'The URL key which will hold the value of long URL in *post request body*',
+    packageValue: 'url',
+    required: false,
+    public: false,
+    type: SettingType.STRING,
+  },
+  {
+    section: sections.custom,
+    id: customConfigs.responseUrlKey,
+    i18nLabel: 'Long URL Key',
+    i18nDescription:
+      'The URL key which will hold the value of shortened URL in *response data*',
+    packageValue: 'result_url',
+    required: false,
+    public: false,
+    type: SettingType.STRING,
   },
 ];
 

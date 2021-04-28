@@ -14,7 +14,7 @@ import notifyTyping from './lib/notifyTyping';
 import zeroConfigShorten from './zeroConfig/main';
 import { configTypes } from './enums/appSettings';
 import { IShortenResult } from './types/shortenCommand';
-import customConfig from './customConfig';
+import customConfig from './customConfig/main';
 
 export default class UrlShortenCommand implements ISlashCommand {
   public command = 'urlshorten';
@@ -56,7 +56,7 @@ export default class UrlShortenCommand implements ISlashCommand {
 
         break;
       case configTypes.custom:
-        val = { error: customConfig() };
+        val = await customConfig({ http, envRead, url });
         break;
       case configTypes.domain:
         val = { error: 'Domain name config was chosen' };
