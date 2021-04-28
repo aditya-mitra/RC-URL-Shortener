@@ -23,12 +23,8 @@ const settings: ISetting[] = [
         i18nLabel: 'CleanURI',
       },
       {
-        key: zeroConfigs.litelink,
-        i18nLabel: 'LiteLink',
-      },
-      {
-        key: zeroConfigs.tly,
-        i18nLabel: 'T.LY',
+        key: zeroConfigs.shrtcode,
+        i18nLabel: 'SHRTCODE',
       },
       {
         key: zeroConfigs.tinyuid,
