@@ -30,10 +30,6 @@ const settings: ISetting[] = [
         key: zeroConfigs.tinyuid,
         i18nLabel: 'TinyUID',
       },
-      {
-        key: zeroConfigs.vurl,
-        i18nLabel: 'VURL',
-      },
     ],
   },
 ];

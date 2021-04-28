@@ -9,7 +9,6 @@ import { IZeroConfigAPIResult } from '../types/zeroConfig';
 import cleanUri from './cleanUri';
 import tinyUid from './tinyUid';
 import shrtCode from './shrtCode';
-import vurl from './vurl';
 
 interface IZeroConfigShorten {
   envRead: IEnvironmentRead;
@@ -36,9 +35,6 @@ export default async function zeroConfigShorten({
       break;
     case zeroConfigs.tinyuid:
       val = await tinyUid(url, http);
-      break;
-    case zeroConfigs.vurl:
-      val = await vurl(url, http);
       break;
     default:
       val = {
