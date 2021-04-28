@@ -12,6 +12,9 @@ import {
 import alertMessage from './lib/alertMessage';
 import notifyTyping from './lib/notifyTyping';
 import zeroConfigShorten from './zeroConfig/main';
+import { configTypes } from './enums/appSettings';
+import { IShortenResult } from './types/shortenCommand';
+import customConfig from './customConfig';
 
 export default class UrlShortenCommand implements ISlashCommand {
   public command = 'urlshorten';
@@ -36,11 +39,36 @@ export default class UrlShortenCommand implements ISlashCommand {
       ctx.getRoom(),
     );
 
-    const { shortened, error } = await zeroConfigShorten({
-      envRead: read.getEnvironmentReader(),
-      http,
-      url,
-    });
+    const envRead = read.getEnvironmentReader();
+
+    const {
+      value: configType,
+    } = await read.getEnvironmentReader().getSettings().getById(configTypes.id);
+
+    let val: IShortenResult = {};
+    switch (configType) {
+      case configTypes.zero:
+        val = await zeroConfigShorten({
+          envRead,
+          http,
+          url,
+        });
+
+        break;
+      case configTypes.custom:
+        val = { error: customConfig() };
+        break;
+      case configTypes.domain:
+        val = { error: 'Domain name config was chosen' };
+        break;
+      default:
+        val = {
+          error:
+            'A Wrong Configuration is chosen\nPlease check the App Settings',
+        };
+    }
+
+    const { shortened, error } = val;
 
     cancelTyping();
 
