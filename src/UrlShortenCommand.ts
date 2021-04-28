@@ -11,7 +11,7 @@ import {
 
 import alertMessage from './lib/alertMessage';
 import notifyTyping from './lib/notifyTyping';
-import zeroConfigShorten from './zeroConfig/shorten';
+import zeroConfigShorten from './zeroConfig/main';
 
 export default class UrlShortenCommand implements ISlashCommand {
   public command = 'urlshorten';
