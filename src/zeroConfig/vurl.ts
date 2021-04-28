@@ -2,6 +2,7 @@ import { IHttp } from '@rocket.chat/apps-engine/definition/accessors';
 
 import { IZeroConfigAPIResult } from '../types/zeroConfig';
 
+/**not using because the urls have to encoded */
 export default async function vurl(
   url: string,
   http: IHttp,
