@@ -1,8 +1,11 @@
 name: Lint and Build
 
 on:
-  - pull_request
-  - push
+  push:
+    branches:
+      - main
+
+  pull_request:
 
 jobs:
   install:
