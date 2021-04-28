@@ -24,6 +24,6 @@ export default async function cleanUri(
   return { shortened, error, api: "cleanuri" };
 }
 
-// TODO: Add documenatation for cleanuri
+// TODO: something else
 // label=documentation label=documentation
 // [homepage](https://cleanuri.com/)
