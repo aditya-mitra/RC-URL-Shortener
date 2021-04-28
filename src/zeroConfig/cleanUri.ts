@@ -1,9 +1,9 @@
-import { IHttp } from '@rocket.chat/apps-engine/definition/accessors';
+import { IHttp } from "@rocket.chat/apps-engine/definition/accessors";
 
-import { IZeroConfigAPIResult } from '../types/zeroConfig';
+import { IZeroConfigAPIResult } from "../types/zeroConfig";
 
 // TODO: Add documenatation for cleanuri
-// category=documentation
+// category=documentation label=documentation
 // [homepage](https://cleanuri.com/)
 
 /**
@@ -12,14 +12,17 @@ import { IZeroConfigAPIResult } from '../types/zeroConfig';
  */
 export default async function cleanUri(
   url: string,
-  http: IHttp,
+  http: IHttp
 ): Promise<IZeroConfigAPIResult> {
-  const resp = await http.post('https://cleanuri.com/api/v1/shorten', {
+  const resp = await http.post("https://cleanuri.com/api/v1/shorten", {
     data: { url },
   });
 
   const shortened = resp.data?.result_url;
   const error = resp.data?.error;
 
-  return { shortened, error, api: 'cleanuri' };
+  return { shortened, error, api: "cleanuri" };
 }
+
+// TODO: Add documenatation for cleanuri
+// category=documentation label=documentation
