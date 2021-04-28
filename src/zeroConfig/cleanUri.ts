@@ -19,8 +19,3 @@ export default async function cleanUri(
 
   return { shortened, error, api: 'cleanuri' };
 }
-
-// TODO: add documentation for cleanuri
-// category=zeroconfig 
-// for now add it in the `docs` folder
-// of the **repository**
