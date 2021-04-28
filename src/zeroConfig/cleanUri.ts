@@ -2,10 +2,6 @@ import { IHttp } from "@rocket.chat/apps-engine/definition/accessors";
 
 import { IZeroConfigAPIResult } from "../types/zeroConfig";
 
-// TODO: Add documenatation for cleanuri
-// category=documentation label=documentation
-// [homepage](https://cleanuri.com/)
-
 /**
  * using cleanuri api
  * @param url url to be shortened
@@ -23,7 +19,3 @@ export default async function cleanUri(
 
   return { shortened, error, api: "cleanuri" };
 }
-
-// TODO: something else
-// label=documentation label=documentation
-// [homepage](https://cleanuri.com/)

@@ -8,6 +8,9 @@ import { IShortenResult } from '../types/shortenCommand';
 import { IZeroConfigAPIResult } from '../types/zeroConfig';
 import cleanUri from './cleanUri';
 
+
+// TODO: check if the thing exists with many length
+// label=documentation
 interface IZeroConfigShorten {
   envRead: IEnvironmentRead;
   url: string;
