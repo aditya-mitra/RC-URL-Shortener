@@ -9,6 +9,13 @@ interface IGetAll {
   responseUrlKey: string;
 }
 
+function parseObject(obj:string):Record<string, string> {
+  if (obj.match(/{\s*}/)) {
+    return {};
+  }
+  return JSON.parse(obj);
+}
+
 export class CustomConfigSettings {
   private envRead: IEnvironmentRead;
 
@@ -29,7 +36,7 @@ export class CustomConfigSettings {
     const headers = (await this.envRead.getSettings().getById(customConfigs.header)).value
       || {};
     try {
-      return JSON.parse(headers);
+      return parseObject(headers);
     } catch (e) {
       throw new Error('The *Headers* for Custom Config are not valid JSON');
     }
@@ -39,7 +46,7 @@ export class CustomConfigSettings {
     const body = (await this.envRead.getSettings().getById(customConfigs.body)).value
       || {};
     try {
-      return JSON.parse(body);
+      return parseObject(body);
     } catch (e) {
       throw new Error('The *Body* for Custom Config is not valid JSON');
     }
@@ -69,15 +76,14 @@ export class CustomConfigSettings {
 
   async getAll(): Promise<IGetAll> {
     // do not catch the error. the try catch in ./main will do it
-    const vals = await Promise.all([
+    const [providerUrl, headers, body, urlKey, responseUrlKey] = await Promise.all([
       this.getProvider(),
       this.getHeaders(),
       this.getBody(),
       this.getUrlKey(),
       this.getResponseUrlKey(),
     ]);
-    console.log(vals, '---');
-    const [providerUrl, headers, body, urlKey, responseUrlKey] = vals;
+
     return {
       providerUrl,
       headers,

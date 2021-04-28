@@ -34,13 +34,18 @@ export default async function customConfigShorten({
       data: body,
     });
 
-    const shortened = getShortenedUrlFromResponse(resp.data, responseUrlKey);
+    const shortenedUrl = getShortenedUrlFromResponse(resp?.data, responseUrlKey);
+    const shortened = `Your shortened URL is ${shortenedUrl}`
     return { shortened };
   } catch (e) {
     if (!e.message) {
       // TODO: refactor this `console.log` to the app logger
-      console.log(e);
+      console.log(e); // eslint-disable-line
     }
+
+    // TODO: Remove this error after doing for more custom urls
+    console.log('ERROR ONLY VISIBLE FOR NOW\n\n', e); // eslint-disable-line
+
     const error = e?.message || 'Unexpected Error! \nPlease check logs';
     return { error };
   }
