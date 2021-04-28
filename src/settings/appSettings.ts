@@ -31,8 +31,8 @@ const settings: ISetting[] = [
         i18nLabel: 'TinyUID',
       },
       {
-        key: zeroConfigs.zws,
-        i18nLabel: 'Zero Width Shortener',
+        key: zeroConfigs.vurl,
+        i18nLabel: 'VURL',
       },
     ],
   },
