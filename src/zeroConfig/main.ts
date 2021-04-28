@@ -7,6 +7,7 @@ import { zeroConfigs } from '../enums/appSettings';
 import { IShortenResult } from '../types/shortenCommand';
 import { IZeroConfigAPIResult } from '../types/zeroConfig';
 import cleanUri from './cleanUri';
+import tinyUid from './tinyUid';
 
 interface IZeroConfigShorten {
   envRead: IEnvironmentRead;
@@ -28,6 +29,9 @@ export default async function zeroConfigShorten({
     case zeroConfigs.cleanuri:
       val = await cleanUri(url, http);
       break;
+    case zeroConfigs.tinyuid:
+      val = await tinyUid(url, http);
+      break;
     default:
       val = {
         shortened: '',
@@ -44,7 +48,7 @@ export default async function zeroConfigShorten({
   }
 
   const errorMessage = val.error
-    ? `_${val.api}_: \`${val.error}\``
+    ? `_${val.api}_ : \`${val.error}\``
     : `Problem getting response from provider: \`${provider}\``;
   return { error: errorMessage };
 }
