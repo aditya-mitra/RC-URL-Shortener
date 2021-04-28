@@ -3,7 +3,7 @@ import { IHttp } from '@rocket.chat/apps-engine/definition/accessors';
 import { IZeroConfigAPIResult } from '../types/zeroConfig';
 
 // TODO: Add documenatation for cleanuri
-// category=documentation estimate=30m
+// category=documentation
 // [homepage](https://cleanuri.com/)
 
 /**
