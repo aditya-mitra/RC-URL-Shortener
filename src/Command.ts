@@ -11,10 +11,10 @@ import {
 
 import sendNotifyMessage from "./lib/sendNotifyMessage";
 import notifyTyping from "./lib/notifyTyping";
-import zeroConfigShorten from "./zeroConfig/main";
+import zeroConfigShorten from "./zeroConfig/shorten";
 import { configTypes } from "./enums/appSettings";
 import { IShortenResult } from "./types/shortenCommand";
-import customConfig from "./customConfig/main";
+import customConfig from "./customConfig/shorten";
 
 export default class Command implements ISlashCommand {
   public command = "urlshorten";
