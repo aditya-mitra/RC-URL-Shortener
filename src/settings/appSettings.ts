@@ -11,7 +11,7 @@ import {
   configTypes,
 } from '../enums/appSettings';
 
-const settings: ISetting[] = [
+const mainSettings: ISetting[] = [
   {
     id: configTypes.id,
     i18nLabel: 'Config Type',
@@ -35,6 +35,9 @@ const settings: ISetting[] = [
       },
     ],
   },
+];
+
+const zeroConfigSettings: ISetting[] = [
   {
     section: sections.zero,
     id: zeroConfigs.id,
@@ -60,13 +63,16 @@ const settings: ISetting[] = [
       },
     ],
   },
+];
+
+const customConfigSettings: ISetting[] = [
   {
     section: sections.custom,
     id: customConfigs.provider,
     i18nLabel: 'Provider URL',
     i18nDescription:
       'The full url of the provider where the request for shortening should be made',
-    packageValue: '',
+    packageValue: 'https://example.com/api/shorten',
     required: false,
     public: false,
     type: SettingType.STRING,
@@ -76,7 +82,7 @@ const settings: ISetting[] = [
     id: customConfigs.header,
     i18nLabel: 'POST Request Headers',
     i18nDescription: 'The values to be sent in the headers of POST request',
-    packageValue: '',
+    packageValue: '{}',
     required: false,
     public: false,
     type: SettingType.CODE,
@@ -88,17 +94,55 @@ const settings: ISetting[] = [
     i18nLabel: 'POST Request Body',
     i18nDescription:
       'The values to be sent *along* in the body of POST request',
-    packageValue: '',
+    packageValue: '{}',
     required: false,
     public: false,
     type: SettingType.CODE,
     multiline: true,
+  },
+  {
+    section: sections.custom,
+    id: customConfigs.urlKey,
+    i18nLabel: 'Request URL Key',
+    i18nDescription:
+      'The URL key which will hold the value of long URL in *request data*',
+    packageValue: 'url',
+    required: false,
+    public: false,
+    type: SettingType.STRING,
+  },
+  {
+    section: sections.custom,
+    id: customConfigs.responseUrlKey,
+    i18nLabel: 'Response URL Key',
+    i18nDescription:
+      'The URL key which will hold the value of shortened URL in *response data*',
+    packageValue: 'result_url',
+    required: false,
+    public: false,
+    type: SettingType.STRING,
+  },
+  {
+    section: sections.custom,
+    id: customConfigs.statsEndpoint,
+    i18nLabel: 'Statistics Endpoint',
+    i18nDescription: `The statistics endpoint for a shortened url.
+Replace the value with \`$statId\` in your provided url.
+_Leave blank if you want to disable_`,
+    packageValue: 'https://example.com/v1/stats/$statId',
+    required: false,
+    public: false,
+    type: SettingType.STRING,
   },
 ];
 
 export default async function appSettings(
   config: IConfigurationExtend,
 ): Promise<void> {
+  const settings = mainSettings.concat(
+    zeroConfigSettings,
+    customConfigSettings,
+  );
   await Promise.all(
     settings.map((setting) => config.settings.provideSetting(setting)),
   );

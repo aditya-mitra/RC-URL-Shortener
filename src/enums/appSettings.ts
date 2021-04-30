@@ -21,6 +21,9 @@ export enum zeroConfigs {
 export enum customConfigs {
   id = 'custom_config',
   provider = 'custom_config_provider',
-  header = 'Custom Config Headers',
-  body = 'Custom Config Post Request Body',
+  header = 'custom_config_header',
+  body = 'custom_config_post_request_body',
+  urlKey = 'long_url_key',
+  responseUrlKey = 'short_url_key',
+  statsEndpoint = 'stat_endpoint',
 }

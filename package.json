@@ -1,6 +1,6 @@
 {
   "name": "urlshortener",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Rocket.Chat App to shorten urls (with customization options)",
   "keywords": [
     "Rocket.Chat",
