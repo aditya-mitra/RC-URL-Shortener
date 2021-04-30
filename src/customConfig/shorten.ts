@@ -26,7 +26,7 @@ export default async function customConfigShorten({
       body,
       urlKey,
       responseUrlKey,
-    } = await customConfigSettings.getAll();
+    } = await customConfigSettings.getAllShortenSettings();
 
     body[urlKey] = url;
 

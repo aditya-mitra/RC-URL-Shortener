@@ -15,6 +15,7 @@ import zeroConfigShorten from "./zeroConfig/shorten";
 import { configTypes } from "./enums/appSettings";
 import { IShortenResult } from "./types/shortenCommand";
 import customConfig from "./customConfig/shorten";
+import customConfigStats from "./customConfig/stats";
 
 export default class Command implements ISlashCommand {
   public command = "urlshorten";
@@ -25,13 +26,37 @@ export default class Command implements ISlashCommand {
 
   public providesPreview = false;
 
-  private async statCommand(ctx: SlashCommandContext, modify: IModify) {
+  private async statCommand(
+    slug: string,
+    ctx: SlashCommandContext,
+    read: IRead,
+    modify: IModify,
+    http: IHttp
+  ): Promise<void> {
     // TODO: show the result in modal
     // category=improvement
     // it is not possible to get the data inside the modal without it being submitted
     // however, **still showing the result in a beautiful yaml-like format in the modal is possible**
+
+    const envRead = read.getEnvironmentReader();
+    const { shortened, error } = await customConfigStats({
+      envRead,
+      http,
+      slug,
+    });
+
+    if (shortened) {
+      sendNotifyMessage({
+        msg: shortened,
+        room: ctx.getRoom(),
+        notify: modify.getNotifier(),
+        sender: ctx.getSender(),
+      });
+      return;
+    }
+
     sendNotifyMessage({
-      msg: "stat command hit",
+      msg: error || "STAT COMMAND ERROR",
       room: ctx.getRoom(),
       notify: modify.getNotifier(),
       sender: ctx.getSender(),
@@ -112,7 +137,9 @@ export default class Command implements ISlashCommand {
     const choice = ctx.getArguments()[0];
 
     if (choice.match(/stat(?:s|istics)?\b/)) {
-      this.statCommand(ctx, modify);
+      const slug = ctx.getArguments()[1];
+
+      this.statCommand(slug, ctx, read, modify, http);
       return;
     }
 
