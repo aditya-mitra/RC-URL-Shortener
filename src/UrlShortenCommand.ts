@@ -74,6 +74,7 @@ export default class UrlShortenCommand implements ISlashCommand {
 
     if (shortened) {
       sendNotifyMessage({
+        modify,
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
         msg: shortened,
@@ -81,6 +82,7 @@ export default class UrlShortenCommand implements ISlashCommand {
       });
     } else {
       sendNotifyMessage({
+        modify,
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
         msg: error || 'SLASH COMMAND ERROR',
