@@ -3,7 +3,7 @@ import {
   IHttp,
 } from '@rocket.chat/apps-engine/definition/accessors';
 import { IShortenResult } from '../types/shortenCommand';
-import { CustomConfigSettings, getShortenedUrlFromResponse } from './helpers';
+import { CustomConfigSettings, getShortenedUrlFromResponse } from './helper';
 
 interface ICustomConfigShorten {
   http: IHttp;
