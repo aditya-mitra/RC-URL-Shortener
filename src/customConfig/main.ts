@@ -36,7 +36,7 @@ export default async function customConfigShorten({
     });
 
     const shortenedUrl = getShortenedUrlFromResponse(resp?.data, responseUrlKey);
-    const shortened = `Your shortened URL is ${shortenedUrl}`
+    const shortened = `Your shortened URL is ${shortenedUrl}`;
     return { shortened };
   } catch (e) {
     if (!e.message) {

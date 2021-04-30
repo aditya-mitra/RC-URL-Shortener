@@ -11,7 +11,7 @@ import {
   configTypes,
 } from '../enums/appSettings';
 
-const settings: ISetting[] = [
+const mainSettings: ISetting[] = [
   {
     id: configTypes.id,
     i18nLabel: 'Config Type',
@@ -35,6 +35,9 @@ const settings: ISetting[] = [
       },
     ],
   },
+];
+
+const zeroConfigSettings: ISetting[] = [
   {
     section: sections.zero,
     id: zeroConfigs.id,
@@ -60,12 +63,15 @@ const settings: ISetting[] = [
       },
     ],
   },
+];
+
+const customConfigSettings: ISetting[] = [
   {
     section: sections.custom,
     id: customConfigs.provider,
     i18nLabel: 'Provider URL',
     i18nDescription:
-    'The full url of the provider where the request for shortening should be made',
+      'The full url of the provider where the request for shortening should be made',
     packageValue: 'https://example.com/api/shorten',
     required: false,
     public: false,
@@ -97,9 +103,9 @@ const settings: ISetting[] = [
   {
     section: sections.custom,
     id: customConfigs.urlKey,
-    i18nLabel: 'URL Key',
+    i18nLabel: 'Request URL Key',
     i18nDescription:
-      'The URL key which will hold the value of long URL in *post request body*',
+      'The URL key which will hold the value of long URL in *request data*',
     packageValue: 'url',
     required: false,
     public: false,
@@ -108,7 +114,7 @@ const settings: ISetting[] = [
   {
     section: sections.custom,
     id: customConfigs.responseUrlKey,
-    i18nLabel: 'Long URL Key',
+    i18nLabel: 'Response URL Key',
     i18nDescription:
       'The URL key which will hold the value of shortened URL in *response data*',
     packageValue: 'result_url',
@@ -121,6 +127,10 @@ const settings: ISetting[] = [
 export default async function appSettings(
   config: IConfigurationExtend,
 ): Promise<void> {
+  const settings = mainSettings.concat(
+    zeroConfigSettings,
+    customConfigSettings,
+  );
   await Promise.all(
     settings.map((setting) => config.settings.provideSetting(setting)),
   );
