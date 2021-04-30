@@ -1,9 +1,9 @@
 import {
   IEnvironmentRead,
   IHttp,
-} from "@rocket.chat/apps-engine/definition/accessors";
-import { IShortenResult } from "../types/shortenCommand";
-import { CustomConfigSettings, replaceSlugInEndpoint } from "./helper";
+} from '@rocket.chat/apps-engine/definition/accessors';
+import { IShortenResult } from '../types/shortenCommand';
+import { CustomConfigSettings, replaceSlugInEndpoint } from './helper';
 
 interface ICustomConfigStats {
   slug: string;
@@ -39,7 +39,7 @@ export default async function customConfigStats({
     // TODO: Remove this error after doing for more custom urls
     console.log("STATS | ERROR ONLY VISIBLE FOR NOW\n\n", e); // eslint-disable-line
 
-    const error = e?.message || "Unexpected Error! \nPlease check logs";
+    const error = e?.message || 'Unexpected Error! \nPlease check logs';
     return { error };
   }
 }
