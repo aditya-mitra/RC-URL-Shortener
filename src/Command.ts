@@ -26,6 +26,10 @@ export default class Command implements ISlashCommand {
   public providesPreview = false;
 
   private async statCommand(ctx: SlashCommandContext, modify: IModify) {
+    // TODO: show the result in modal
+    // category=improvement
+    // it is not possible to get the data inside the modal without it being submitted
+    // however, **still showing the result in a beautiful yaml-like format in the modal is possible**
     sendNotifyMessage({
       msg: "stat command hit",
       room: ctx.getRoom(),
