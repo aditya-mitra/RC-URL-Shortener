@@ -59,6 +59,59 @@ shortUrl
 That's it! You have set up Rebrandly to shorten your urls. 🎉
 
 Type in the slash command in any channel to get a short url from Rebrandly
+
+```
+/shortenurl https://github.com/aditya-mitra/RC-URL-Shortener/actions
+```
+
+## Bitly
+
+A fast and customized url shortener. It can be customized with a _domain_ and provides _statistics_ by the device type, country and referrers as well.
+
+[Rate Limits](https://dev.bitly.com/docs/getting-started/rate-limits) can vary according to the plan you have chosen in bitly.
+
+You can read and try out the API Documentations for Bitly [here](https://dev.bitly.com/api-reference).
+
+You can set up Rebrandly by following these steps:
+
+1. Select the **Config Type** in the App Settings as `Custom Config` from the dropdown.
+
+2. Get your API token from Bitly. You can refer [here](https://dev.bitly.com/docs/getting-started/authentication) for help.
+
+3. Paste API endpoint URL for creating new shortened links in **Provider URL**
+
+```
+https://api-ssl.bitly.com/v4/bitlinks
+```
+
+4. Bitly accepts `application/json` as it's _Content-Type_ and the `Bearer token` in the request headers. So you need to add the following in the **POST Request Headers**.
+
+```json
+{
+  "Content-Type": "application/json",
+  "Authorization": "Bearer <YOUR-TOKEN>"
+}
+```
+
+\*Replace the `<YOUR-TOKEN>` with the **token** from your Bitly dashboard.
+
+
+5. The Long URLs will be valued with `long_url` in the request body. So, you need to add it under **URL Key**.
+
+```
+long_url
+```
+
+6. In the response body, the shortened URL will be valued with `link`. So, you need to add it under **Long URL Key**.
+
+```
+link
+```
+
+That's it! You have set up Bitly to shorten your urls. 🎉
+
+Type in the slash command in any channel to get a short url from Rebrandly
+
 ```
 /shortenurl https://github.com/aditya-mitra/RC-URL-Shortener/actions
 ```
