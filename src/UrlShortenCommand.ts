@@ -25,6 +25,44 @@ export default class UrlShortenCommand implements ISlashCommand {
 
   public providesPreview = false;
 
+  private async getStatistics(ctx: SlashCommandContext, modify: IModify) {
+    const triggerId = ctx.getTriggerId();
+    if (!triggerId) {
+      console.log("no trigger id found"); // eslint-disable-line
+      return;
+    }
+
+    const block = modify.getCreator().getBlockBuilder();
+
+    block.addContextBlock({
+      blockId: 'stat_info_help',
+      elements: [
+        block.newMarkdownTextObject(
+          '*Enter the slug of your shortened URL*\n _OR_ *If you have short name, you can enter it as well*',
+        ),
+      ],
+    });
+
+    block.addInputBlock({
+      blockId: 'stat_block',
+      element: block.newPlainTextInputElement({
+        actionId: 'stat_input',
+        multiline: false,
+      }),
+      label: block.newPlainTextObject('The URL Slug OR the Short Name'),
+    });
+
+    await modify.getUiController().openModalView(
+      {
+        id: `--${Date.now()}`,
+        blocks: block.getBlocks(),
+        title: block.newPlainTextObject('URL Statistics'),
+      },
+      { triggerId },
+      ctx.getSender(),
+    );
+  }
+
   public async executor(
     ctx: SlashCommandContext,
     read: IRead,
@@ -32,8 +70,16 @@ export default class UrlShortenCommand implements ISlashCommand {
     http: IHttp,
     persist: IPersistence // eslint-disable-line
   ): Promise<void> {
-    const url = ctx.getArguments()[0];
+    const choice = ctx.getArguments()[0];
 
+    if (choice.match(/stat(?:s|istics)?\b/)) {
+      this.getStatistics(ctx, modify);
+    }
+
+    const url = choice;
+
+    // TODO: Refactor shorten into **private class functions**
+    // category=refactor
     const cancelTyping = await notifyTyping(
       modify.getNotifier(),
       ctx.getRoom(),
