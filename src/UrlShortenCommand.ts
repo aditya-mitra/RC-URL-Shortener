@@ -25,7 +25,7 @@ export default class UrlShortenCommand implements ISlashCommand {
 
   public providesPreview = false;
 
-  private async getStatistics(ctx: SlashCommandContext, modify: IModify) {
+  private async statCommand(ctx: SlashCommandContext, modify: IModify) {
     const triggerId = ctx.getTriggerId();
     if (!triggerId) {
       console.log("no trigger id found"); // eslint-disable-line
@@ -63,23 +63,14 @@ export default class UrlShortenCommand implements ISlashCommand {
     );
   }
 
-  public async executor(
+  private async shortenCommand(
+    url: string,
     ctx: SlashCommandContext,
     read: IRead,
     modify: IModify,
     http: IHttp,
     persist: IPersistence // eslint-disable-line
-  ): Promise<void> {
-    const choice = ctx.getArguments()[0];
-
-    if (choice.match(/stat(?:s|istics)?\b/)) {
-      this.getStatistics(ctx, modify);
-    }
-
-    const url = choice;
-
-    // TODO: Refactor shorten into **private class functions**
-    // category=refactor
+  ) {
     const cancelTyping = await notifyTyping(
       modify.getNotifier(),
       ctx.getRoom(),
@@ -92,6 +83,7 @@ export default class UrlShortenCommand implements ISlashCommand {
     } = await read.getEnvironmentReader().getSettings().getById(configTypes.id);
 
     let val: IShortenResult = {};
+
     switch (configType) {
       case configTypes.zero:
         val = await zeroConfigShorten({
@@ -133,5 +125,22 @@ export default class UrlShortenCommand implements ISlashCommand {
         room: ctx.getRoom(),
       });
     }
+  }
+
+  public async executor(
+    ctx: SlashCommandContext,
+    read: IRead,
+    modify: IModify,
+    http: IHttp,
+    persist: IPersistence,
+  ): Promise<void> {
+    const choice = ctx.getArguments()[0];
+
+    if (choice.match(/stat(?:s|istics)?\b/)) {
+      this.statCommand(ctx, modify);
+      return;
+    }
+
+    this.shortenCommand(choice, ctx, read, modify, http, persist);
   }
 }
