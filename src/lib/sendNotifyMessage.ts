@@ -10,7 +10,7 @@ interface IAlertMessage {
   msg: string;
 }
 
-export default async function alertMessage({
+export default async function sendNotifyMessage({
   notify,
   sender,
   msg,

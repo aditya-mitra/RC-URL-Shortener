@@ -9,7 +9,7 @@ import {
   SlashCommandContext,
 } from '@rocket.chat/apps-engine/definition/slashcommands';
 
-import alertMessage from './lib/alertMessage';
+import sendNotifyMessage from './lib/sendNotifyMessage';
 import notifyTyping from './lib/notifyTyping';
 import zeroConfigShorten from './zeroConfig/main';
 import { configTypes } from './enums/appSettings';
@@ -73,14 +73,14 @@ export default class UrlShortenCommand implements ISlashCommand {
     cancelTyping();
 
     if (shortened) {
-      alertMessage({
+      sendNotifyMessage({
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
         msg: shortened,
         room: ctx.getRoom(),
       });
     } else {
-      alertMessage({
+      sendNotifyMessage({
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
         msg: error || 'SLASH COMMAND ERROR',

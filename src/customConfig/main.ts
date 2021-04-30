@@ -2,6 +2,7 @@ import {
   IEnvironmentRead,
   IHttp,
 } from '@rocket.chat/apps-engine/definition/accessors';
+
 import { IShortenResult } from '../types/shortenCommand';
 import { CustomConfigSettings, getShortenedUrlFromResponse } from './helper';
 
