@@ -3,27 +3,27 @@ import {
   IModify,
   IPersistence,
   IRead,
-} from "@rocket.chat/apps-engine/definition/accessors";
+} from '@rocket.chat/apps-engine/definition/accessors';
 import {
   ISlashCommand,
   SlashCommandContext,
-} from "@rocket.chat/apps-engine/definition/slashcommands";
+} from '@rocket.chat/apps-engine/definition/slashcommands';
 
-import sendNotifyMessage from "./lib/sendNotifyMessage";
-import notifyTyping from "./lib/notifyTyping";
-import zeroConfigShorten from "./zeroConfig/shorten";
-import { configTypes } from "./enums/appSettings";
-import { IShortenResult } from "./types/shortenCommand";
-import customConfig from "./customConfig/shorten";
-import customConfigStats from "./customConfig/stats";
-import domainConfig from "./domainConfig/shorten";
+import sendNotifyMessage from './lib/sendNotifyMessage';
+import notifyTyping from './lib/notifyTyping';
+import zeroConfigShorten from './zeroConfig/shorten';
+import { configTypes } from './enums/appSettings';
+import { IShortenResult } from './types/shortenCommand';
+import customConfig from './customConfig/shorten';
+import customConfigStats from './customConfig/stats';
+import domainConfig from './domainConfig/shorten';
 
 export default class Command implements ISlashCommand {
-  public command = "shortenurl";
+  public command = 'shortenurl';
 
-  public i18nDescription = "shorten long urls";
+  public i18nDescription = 'shorten long urls';
 
-  public i18nParamsExample = "<url> <quick|custom>";
+  public i18nParamsExample = '<url> <quick|custom>';
 
   public providesPreview = false;
 
@@ -32,7 +32,7 @@ export default class Command implements ISlashCommand {
     ctx: SlashCommandContext,
     read: IRead,
     modify: IModify,
-    http: IHttp
+    http: IHttp,
   ): Promise<void> {
     // TODO: show the result in modal
     // category=improvement
@@ -58,7 +58,7 @@ export default class Command implements ISlashCommand {
     }
 
     sendNotifyMessage({
-      msg: error || "STAT COMMAND ERROR",
+      msg: error || 'STAT COMMAND ERROR',
       room: ctx.getRoom(),
       notify: modify.getNotifier(),
       sender: ctx.getSender(),
@@ -71,14 +71,15 @@ export default class Command implements ISlashCommand {
     read: IRead,
     modify: IModify,
     http: IHttp,
-    persist: IPersistence
+    persist: IPersistence,
   ) {
     const cancelTyping = await notifyTyping(
       modify.getNotifier(),
-      ctx.getRoom()
+      ctx.getRoom(),
     );
 
     const envRead = read.getEnvironmentReader();
+    const persistRead = read.getPersistenceReader();
 
     const {
       value: configType,
@@ -99,7 +100,6 @@ export default class Command implements ISlashCommand {
         val = await customConfig({ http, envRead, url });
         break;
       case configTypes.domain:
-        const persistRead = read.getPersistenceReader();
         val = await domainConfig({
           url,
           persist,
@@ -111,7 +111,7 @@ export default class Command implements ISlashCommand {
       default:
         val = {
           error:
-            "A Wrong Configuration is chosen\nPlease check the App Settings",
+            'A Wrong Configuration is chosen\nPlease check the App Settings',
         };
     }
 
@@ -130,7 +130,7 @@ export default class Command implements ISlashCommand {
       sendNotifyMessage({
         notify: modify.getNotifier(),
         sender: ctx.getSender(),
-        msg: error || "SLASH COMMAND ERROR",
+        msg: error || 'SLASH COMMAND ERROR',
         room: ctx.getRoom(),
       });
     }
@@ -141,7 +141,7 @@ export default class Command implements ISlashCommand {
     read: IRead,
     modify: IModify,
     http: IHttp,
-    persist: IPersistence
+    persist: IPersistence,
   ): Promise<void> {
     const choice = ctx.getArguments()[0];
 

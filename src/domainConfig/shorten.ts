@@ -2,15 +2,15 @@ import {
   IEnvironmentRead,
   IPersistence,
   IPersistenceRead,
-} from "@rocket.chat/apps-engine/definition/accessors";
+} from '@rocket.chat/apps-engine/definition/accessors';
 import {
   RocketChatAssociationModel,
   RocketChatAssociationRecord,
-} from "@rocket.chat/apps-engine/definition/metadata";
-import { domainConfigs } from "../enums/appSettings";
+} from '@rocket.chat/apps-engine/definition/metadata';
+import { domainConfigs } from '../enums/appSettings';
 
-import { IShortenResult } from "../types/shortenCommand";
-import generateRandomId from "./helper";
+import { IShortenResult } from '../types/shortenCommand';
+import generateRandomId from './helper';
 
 interface IShortenWithCustomDomain {
   url: string;
@@ -29,7 +29,7 @@ export default async function shortenWithCustomDomain({
     .value;
   if (!domainUrl) {
     return {
-      error: `Domain Config - *The \`domain URL\` is not specified.\nPlease provide one in the app settings.`,
+      error: 'Domain Config - *The `domain URL` is not specified.\nPlease provide one in the app settings.',
     };
   }
 
@@ -37,7 +37,7 @@ export default async function shortenWithCustomDomain({
 
   const association = new RocketChatAssociationRecord(
     RocketChatAssociationModel.MISC,
-    slug
+    slug,
   );
 
   persist.createWithAssociation({ url }, association); // no need to await

@@ -4,37 +4,40 @@ import {
   IModify,
   IPersistence,
   IRead,
-} from "@rocket.chat/apps-engine/definition/accessors";
+} from '@rocket.chat/apps-engine/definition/accessors';
 import {
   ApiEndpoint,
   IApiEndpointInfo,
   IApiRequest,
   IApiResponse,
-} from "@rocket.chat/apps-engine/definition/api";
+} from '@rocket.chat/apps-engine/definition/api';
 import {
   RocketChatAssociationModel,
   RocketChatAssociationRecord,
-} from "@rocket.chat/apps-engine/definition/metadata";
+} from '@rocket.chat/apps-engine/definition/metadata';
 
 function respondWithError(message?: string): IApiResponse {
   return {
     status: HttpStatusCode.BAD_REQUEST,
-    content: message || "The URL could not be found.",
+    content: message || 'The URL could not be found.',
     headers: {
-      "Content-Type": "Text/Plain",
+      'Content-Type': 'Text/Plain',
     },
   };
 }
 
 export default class RedirectEndpoint extends ApiEndpoint {
-  public path = "redirect/:slug/"; // add a trailing slash to get the param
+  public path = 'redirect/:slug/'; // add a trailing slash to get the param
+
+  // TODO: fix the eslint warnings here
+
   public async get(
     req: IApiRequest,
     endpoint: IApiEndpointInfo,
     read: IRead,
-    modify: IModify,
-    http: IHttp,
-    perist: IPersistence
+    modify: IModify, // eslint-ignore-line
+    http: IHttp, // eslint-ignore-line
+    perist: IPersistence, // eslint-ignore-line
   ): Promise<IApiResponse> {
     const persistRead = read.getPersistenceReader();
 
@@ -45,7 +48,7 @@ export default class RedirectEndpoint extends ApiEndpoint {
 
     const association = new RocketChatAssociationRecord(
       RocketChatAssociationModel.MISC,
-      slug
+      slug,
     );
 
     const found = await persistRead.readByAssociation(association);
@@ -54,10 +57,10 @@ export default class RedirectEndpoint extends ApiEndpoint {
       return respondWithError();
     }
 
-    const longUrl = (found as any)[0].url;
+    const longUrl = (found as Record<string, string>[])[0].url;
     if (!longUrl) {
       return respondWithError(
-        "Unknown error in URL Shortener App.\nPlease check logs."
+        'Unknown error in URL Shortener App.\nPlease check logs.',
       );
     }
 
