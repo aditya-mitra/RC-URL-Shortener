@@ -103,6 +103,7 @@ export default class Command implements ISlashCommand {
         val = await domainConfig({
           url,
           persist,
+          envRead,
           persistRead,
         });
 
