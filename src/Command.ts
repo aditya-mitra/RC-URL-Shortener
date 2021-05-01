@@ -18,7 +18,7 @@ import customConfig from './customConfig/shorten';
 import customConfigStats from './customConfig/stats';
 
 export default class Command implements ISlashCommand {
-  public command = 'urlshorten';
+  public command = 'shortenurl';
 
   public i18nDescription = 'shorten long urls';
 
