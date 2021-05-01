@@ -11,6 +11,20 @@ import {
   IApiRequest,
   IApiResponse,
 } from "@rocket.chat/apps-engine/definition/api";
+import {
+  RocketChatAssociationModel,
+  RocketChatAssociationRecord,
+} from "@rocket.chat/apps-engine/definition/metadata";
+
+function respondWithBadRequest(): IApiResponse {
+  return {
+    status: HttpStatusCode.BAD_REQUEST,
+    content: "The URL could not be found.",
+    headers: {
+      "Content-Type": "Text/Plain",
+    },
+  };
+}
 
 export default class RedirectEndpoint extends ApiEndpoint {
   public path = "redirect/:slug/"; // add a trailing slash to get the param
@@ -22,9 +36,29 @@ export default class RedirectEndpoint extends ApiEndpoint {
     http: IHttp,
     perist: IPersistence
   ): Promise<IApiResponse> {
-    console.log("route hit", req);
+    const persistRead = read.getPersistenceReader();
+
+    const slug = req.params?.slug;
+    if (!slug) {
+      return respondWithBadRequest();
+    }
+
+    const association = new RocketChatAssociationRecord(
+      RocketChatAssociationModel.MISC,
+      slug
+    );
+
+    const found = await persistRead.readByAssociation(association);
+
+    if (found.length === 0) {
+      return respondWithBadRequest();
+    }
+
+    const content = found;
+
     return {
       status: HttpStatusCode.OK,
+      content,
     };
   }
 }
