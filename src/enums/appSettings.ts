@@ -27,3 +27,7 @@ export enum customConfigs {
   responseUrlKey = 'short_url_key',
   statsEndpoint = 'stat_endpoint',
 }
+
+export enum domainConfigs {
+  url = 'domain_url',
+}

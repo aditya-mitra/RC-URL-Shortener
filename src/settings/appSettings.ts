@@ -9,6 +9,7 @@ import {
   sections,
   customConfigs,
   configTypes,
+  domainConfigs,
 } from '../enums/appSettings';
 
 const mainSettings: ISetting[] = [
@@ -136,12 +137,26 @@ _Leave blank if you want to disable_`,
   },
 ];
 
+const domainConfigSettings: ISetting[] = [
+  {
+    section: sections.domain,
+    id: domainConfigs.url,
+    i18nLabel: 'Domain URL',
+    i18nDescription: 'The URL which will be redirecting to the App',
+    packageValue: '',
+    required: false,
+    public: false,
+    type: SettingType.STRING,
+  },
+];
+
 export default async function appSettings(
   config: IConfigurationExtend,
 ): Promise<void> {
   const settings = mainSettings.concat(
     zeroConfigSettings,
     customConfigSettings,
+    domainConfigSettings,
   );
   await Promise.all(
     settings.map((setting) => config.settings.provideSetting(setting)),

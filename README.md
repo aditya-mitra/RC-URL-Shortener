@@ -2,12 +2,13 @@
 
 # Rocket.Chat-URL_Shortener
 
-**Rocket.Chat App which:**
+### Features
 
-- shortens URLs with public APIs _(which do not require authentication)_
-- shortens URLs with public APIs _(which provide an access token)_
-- custom configured using a url _(which redirects to the app's public endpoint for the actual url)_
-
+- **zero configuration option** (just select the provider from the dropdown)
+- **custom configuration option** (for shorteners which require authentication ex. bitly)
+- **url statistics** (the stats for the shortened url) _IN BETA STAGE_
+- **domain url configuration option** (IN APP shortener by redirecting to the app's endpoint)
+- **ui buttons** (buttons like `send to chat`) _IN BETA STAGE_ 
 # Development
 
 ## Setting up the Development Environment

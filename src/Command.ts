@@ -16,9 +16,10 @@ import { configTypes } from './enums/appSettings';
 import { IShortenResult } from './types/shortenCommand';
 import customConfig from './customConfig/shorten';
 import customConfigStats from './customConfig/stats';
+import domainConfig from './domainConfig/shorten';
 
 export default class Command implements ISlashCommand {
-  public command = 'urlshorten';
+  public command = 'shortenurl';
 
   public i18nDescription = 'shorten long urls';
 
@@ -70,7 +71,7 @@ export default class Command implements ISlashCommand {
     read: IRead,
     modify: IModify,
     http: IHttp,
-    persist: IPersistence // eslint-disable-line
+    persist: IPersistence,
   ) {
     const cancelTyping = await notifyTyping(
       modify.getNotifier(),
@@ -78,6 +79,7 @@ export default class Command implements ISlashCommand {
     );
 
     const envRead = read.getEnvironmentReader();
+    const persistRead = read.getPersistenceReader();
 
     const {
       value: configType,
@@ -98,7 +100,13 @@ export default class Command implements ISlashCommand {
         val = await customConfig({ http, envRead, url });
         break;
       case configTypes.domain:
-        val = { error: 'Domain name config was chosen' };
+        val = await domainConfig({
+          url,
+          persist,
+          envRead,
+          persistRead,
+        });
+
         break;
       default:
         val = {
